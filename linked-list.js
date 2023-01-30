@@ -101,43 +101,68 @@ class LinkedList {
        return false;
     };
 
-    find(value) {
-        // return index of node containing value; else null
+    findFirst(value) {
+        let ptr = this.head;
+        while (ptr.next != null) {
+            if (ptr.value == value) {
+                return ptr;
+            }
+            ptr = ptr.next;
+        };
+        return null;
     };
 
     toString() {
-        // console.log list as string: e.g., ( value ) -> ( value ) -> ( value ) -> null
+        if (this.head == null) {
+            return "null";
+        } else {
+            let outputString = "(";
+            let ptr = this.head;
+            while (ptr != null) {
+                outputString = outputString + ptr.value + ") -> (";
+                ptr = ptr.next;
+            };
+            outputString = outputString.slice(0, -1) + "null";
+            console.log(outputString);
+        }
     };
 
     insertAt(value, index) {
-        // insert a new node with the provided value at the given index
+        let newNode = new Node();
+        newNode.value = value;
+        let counter = 0;
+        let previous = null;
+        let ptr = this.head;
+        while ((counter != index) && (ptr.next != null)) {
+            counter++;
+            previous = ptr;
+            ptr = ptr.next;
+        };
+        if ((counter == index - 1) && (ptr.next == null)) {
+            ptr.next = newNode;
+        } else if ((counter == index) && (previous == null)) {
+            newNode.next = this.head;
+            this.head = newNode;
+        } else if (counter == index) {
+            previous.next = newNode;
+            newNode.next = ptr;
+        };
     };
 
     removeAt(index) {
-        // remove node at given index
+        let counter = 0;
+        let previous = null;
+        let ptr = this.head;
+        while ((counter != index) && (ptr.next != null)) {
+            counter++;
+            previous = ptr;
+            ptr = ptr.next;
+        };
+        if ((counter == index) && (previous == null)) {
+            this.head = ptr.next;
+        } else if (counter == index) {
+            previous.next = ptr.next;
+        };
     }
 
 };
-
-theList = new LinkedList();
-console.log(theList.size())
-theList.pop();
-console.log(theList.returnTail())
-theList.append(30);
-theList.append(40);
-theList.append(50);
-theList.prepend(20);
-console.log(theList.size())
-console.log(theList.head);
-console.log(theList.head.next);
-console.log(theList.head.next.next);
-console.log(theList.head.next.next.next);
-console.log(theList.returnHead())
-console.log(theList.returnTail())
-console.log(theList.at(0))
-console.log(theList.at(3))
-console.log(theList.returnTail())
-theList.pop();
-console.log(theList.returnTail())
-console.log(theList.contains(30));
-console.log(theList.contains(10));
