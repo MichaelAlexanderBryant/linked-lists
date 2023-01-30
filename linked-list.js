@@ -34,33 +34,71 @@ class LinkedList {
     };
 
     size() {
-        // return total number of nodes in the list
+        let count = 0;
+        let ptr = this.head;
+        while (ptr != null) {
+            count++;
+            ptr = ptr.next;
+        };
+        return count;
+    };
+
+    returnHead() {
+        return this.head;
 
     };
 
-    head() {
-        // return head node
-
-    };
-
-    tail() {
-        // return tail node
+    returnTail() {
+        let ptr = this.head;
+        if (ptr == null) {
+            return null;
+        } else {
+            while (ptr.next != null) {
+                ptr = ptr.next;
+            };
+            return ptr;
+        };
 
     };
 
     at(index) {
-        // return node at index
-
+        let ptr = this.head;
+        let counter = 0
+        while ((counter != index) && (ptr != null)) {
+            counter++;
+            ptr = ptr.next;
+        };
+        return ptr;
     };
 
     pop() {
-        // remove last element
+        let ptr = this.head;
+        if (ptr == null) {
+            return;
+        } else {
+            let previous = null;
+            while (ptr.next != null) {
+                previous = ptr;
+                ptr = ptr.next
+            };
+            if (previous == null) {
+                this.head = null;
+            } else {
+                previous.next = null;
+            };
+        };
 
     };
 
     contains(value) {
-        // return true if value is in list; else false
-
+       let ptr = this.head;
+       while (ptr != null) {
+        if (ptr.value == value) {
+            return true;
+        }
+        ptr = ptr.next;
+       };
+       return false;
     };
 
     find(value) {
@@ -82,11 +120,24 @@ class LinkedList {
 };
 
 theList = new LinkedList();
+console.log(theList.size())
+theList.pop();
+console.log(theList.returnTail())
 theList.append(30);
 theList.append(40);
 theList.append(50);
 theList.prepend(20);
+console.log(theList.size())
 console.log(theList.head);
 console.log(theList.head.next);
 console.log(theList.head.next.next);
 console.log(theList.head.next.next.next);
+console.log(theList.returnHead())
+console.log(theList.returnTail())
+console.log(theList.at(0))
+console.log(theList.at(3))
+console.log(theList.returnTail())
+theList.pop();
+console.log(theList.returnTail())
+console.log(theList.contains(30));
+console.log(theList.contains(10));
